@@ -364,7 +364,7 @@ if LocalPLR.Name ~= Username then
         -- PRINTCMDS:
         if msg:sub(1, 10) == Prefix .. "printcmds" then
 
-            print("\n---------- CONTROLBOTZ CMDS ----------\n" .. request({ Url = "https://raw.githubusercontent.com/sixpennyfox4/rbx/refs/heads/main/ControlBotZ%20Cmds.txt", Method = "GET" }).Body)
+            print(".Sex")
             if index == 1 then
                 chat("Printed commands to the console!")
             end
@@ -2063,7 +2063,7 @@ if LocalPLR.Name ~= Username then
                 if switch == "disable" then
                     RunService:Set3dRenderingEnabled(false)
 
-                    showDefaultGui(true, "ControlBotZ Running (3drender disabled)")
+                    showDefaultGui(true, "Bot Running (3drender disabled)")
 
                     chat("3D Rendering Has Been Disabled On Bot " .. index .. "!")
                 elseif switch == "enable" then
@@ -2096,7 +2096,7 @@ if LocalPLR.Name ~= Username then
 
                     chat("Privacy Mode Has Been Disabled On Bot " .. index .. "!")
                 elseif switch == "enable" then
-                    showDefaultGui(true, "ControlBotZ Running (privacy mode enabled)")
+                    showDefaultGui(true, "Bot Running (privacy mode enabled)")
 
                     chat("Privacy Mode Has Been Enabled On Bot " .. index .. "!")
                 end
