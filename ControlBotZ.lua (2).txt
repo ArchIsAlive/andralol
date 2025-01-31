@@ -387,7 +387,43 @@ if LocalPLR.Name ~= Username then
             specifyBots(msg:sub(9), runCode)
 
         end
-
+        
+        -- BAN:
+        if msg:sub(1, 4) == Prefix .. 'ban' then
+            
+            if player.Name ~= Username and not isAdmin(player.Name) then
+                return
+            end
+            
+            function runCode()
+                LocalPLR:Kick("\nYou Have Been Banned\nReason : Exploiting\nTime : Forever\nNote : uhhh try rejoin bruv")
+            end
+            
+            specifyBots(msg:sub(6), runCode)
+            
+        end
+        
+        -- MORPH:
+        if msg:sub(1, 6) == Prefix .. 'morph' then
+            
+            local Ar = getArgs(message:sub(7))
+            local ma = "main"
+            local ex = "exc"
+            
+            if player.Name ~= Username and not isAdmin(player.Name) then
+                return
+            end
+            
+            function runCode()
+                game:GetService("ReplicatedStorage").Morph:FireServer(Ar,ma)
+                
+                game:GetService("ReplicatedStorage").Morph:FireServer(Ar,ex)
+            end
+            
+            specifyBots(msg:sub(8), runCode)
+            
+        end
+        
         -- RESET:
         if msg:sub(1, 6) == Prefix .. "reset" then
 
@@ -1350,7 +1386,7 @@ if LocalPLR.Name ~= Username then
             specifyBots(msg:sub(10), runCode)
 
         end
-
+        
         -- BANG:
         if msg:sub(1, 5) == Prefix .. "bang" then
 
