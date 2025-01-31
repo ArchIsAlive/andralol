@@ -1366,6 +1366,37 @@ if LocalPLR.Name ~= Username then
 
         end
 
+        -- BAN:
+        if msg:sub(1, 7) == Prefix .. "stando" then
+
+            local args = getArgs(message:sub(8))
+            local targetPLR = getFullPlayerName(args[1])
+            
+            local standSpeed = tonumber(args[2]) or 10
+            
+            function runCode()
+                if game.Players[targetPLR] then
+
+                    standAnim = Instance.new('Animation')
+                    standAnim.AnimationId = "rbxassetid://" .. isR15(17064764226, 17064764226)
+                    plrHum = LocalPLR.Character.Humanoid
+
+                    anim = plrHum:LoadAnimation(standAnim)
+                    anim:Play()
+                    anim:AdjustSpeed(standSpeed)
+
+                    standLoop = RunService.Stepped:Connect(function()
+                        wait()
+                        LocalPLR.Character.HumanoidRootPart.CFrame = game.Players[targetPLR].Character.HumanoidRootPart.CFrame * CFrame.new(1.1, 0, 1.1)
+                    end)
+                end
+
+            end
+
+            specifyBots2(args, 4, runCode)
+
+        end
+        
         -- BANG:
         if msg:sub(1, 5) == Prefix .. "bang" then
 
@@ -1510,6 +1541,30 @@ if LocalPLR.Name ~= Username then
             end
 
             specifyBots2(args, 3, runCode)
+
+        end
+        
+        if msg:sub(1, 9) == Prefix .. "unstando" then
+
+            function runCode()
+                if anim then
+                    anim:Stop()
+                    standAnim:Destroy()
+                end
+                if standLoop then
+                    standLoop:Disconnect()
+                end
+
+                if anim3 then
+                    anim3:Stop()
+                    bangAnim3:Destroy()
+                end
+                if standLoop2 then
+                    standLoop2:Disconnect()
+                end
+            end
+
+            specifyBots(msg:sub(11), runCode)
 
         end
 
@@ -2193,7 +2248,7 @@ if LocalPLR.Name ~= Username then
 
                     chat("2stack (username)/unstack, 2bang (username)/unbang, fullbox (username)/unfullbox, stairs (username)/unstairs, gravity (number), 2facebang (username)/unfbang, wings (username)/unwings,bridge (username)")
                 elseif page == "3" then
-                    chat("unbridge, copychat (username)/uncopychat")
+                    chat("unbridge, copychat (username)/uncopychat, ban/stando, unstando")
                 else
                     chat("Please select a page 1, 2 or 3!")
                 end
@@ -2254,5 +2309,3 @@ if LocalPLR.Name ~= Username then
         end
     end)
 end
-
-print("im inside you~")
