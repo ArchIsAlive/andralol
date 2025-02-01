@@ -591,6 +591,35 @@ if LocalPLR.Name ~= Username then
             LocalPLR.Character.HumanoidRootPart.CFrame = targetHumanoidRootPart.CFrame + offset
 
         end
+        
+        -- thunder:
+        if msg:sub(1, 7) == Prefix .. "lineup" then
+
+
+            local direction = msg:sub(9)
+            local spacing = 3
+
+            local targetHumanoidRootPart = game.Players[player.Name].Character.HumanoidRootPart
+
+            local directionVector
+            if direction == "front" then
+                spacing = 3
+                directionVector = targetHumanoidRootPart.CFrame.LookVector
+            elseif direction == "back" then
+                spacing = 3
+                directionVector = -targetHumanoidRootPart.CFrame.LookVector
+            elseif direction == "left" then
+                spacing = 5
+                directionVector = -targetHumanoidRootPart.CFrame.RightVector
+            elseif direction == "right" then
+                spacing = 5
+                directionVector = targetHumanoidRootPart.CFrame.RightVector
+            end
+
+            local offset = directionVector * (spacing * index)
+            LocalPLR.Character.HumanoidRootPart.CFrame = targetHumanoidRootPart.CFrame + offset
+
+        end
 
         -- SHUTDOWN:
         if msg:sub(1, 9) == Prefix .. "shutdown" then
@@ -1409,6 +1438,38 @@ if LocalPLR.Name ~= Username then
                     bangLoop = RunService.Stepped:Connect(function()
                         wait()
                         LocalPLR.Character.HumanoidRootPart.CFrame = game.Players[targetPLR].Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 1.1)
+                    end)
+                end
+
+            end
+
+            specifyBots2(args, 3, runCode)
+
+        end
+        
+        -- CALL:
+        if msg:sub(1, 5) == Prefix .. "call" then
+
+
+            local args = getArgs(message:sub(7))
+            local targetPLR = getFullPlayerName(args[1])
+
+            local callSpeed = tonumber(args[2]) or 10
+
+            function runCode()
+                if game.Players[targetPLR] then
+
+                    stanAnim = Instance.new('Animation')
+                    stanAnim.AnimationId = "rbxassetid://" .. isR15(17064762422, 17064764226)
+                    plrHum = LocalPLR.Character.Humanoid
+
+                    anim = plrHum:LoadAnimation(stanAnim)
+                    anim:Play()
+                    anim:AdjustSpeed(stanSpeed)
+
+                    stanLoop = RunService.Stepped:Connect(function()
+                        wait()
+                        LocalPLR.Character.HumanoidRootPart.CFrame = game.Players[targetPLR].Character.HumanoidRootPart.CFrame * CFrame.new(1.1, 0.5, 1.1)
                     end)
                 end
 
